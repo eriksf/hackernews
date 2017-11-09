@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Loading has a valid snapshot 1`] = `
+<div>
+  <i
+    aria-hidden="true"
+    className="fa fa-refresh fa-spin fa-fw"
+  />
+   Loading...
+</div>
+`;

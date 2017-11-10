@@ -12,26 +12,39 @@ const SORTS = {
     POINTS: list => sortBy(list, 'points').reverse(),
 }
 
+const SORT_STATES = [
+    'no_sort',
+    'sort_forward',
+    'sort_reverse'
+]
+
 class Table extends Component {
     constructor(props) {
         super(props)
 
         this.state = {
             sortKey: 'NONE',
-            isSortReverse: false,
+            sortState: 0,
         }
     }
 
     onSort = (sortKey) => {
-        const isSortReverse = this.state.sortKey === sortKey && !this.state.isSortReverse
-        this.setState({ sortKey, isSortReverse })
+        if (this.state.sortKey === sortKey) {
+            let { sortState } = this.state
+            sortState = (sortState + 1) % SORT_STATES.length
+            sortKey = sortState === 0 ? 'NONE' : sortKey
+            this.setState({ sortKey: sortKey, sortState: sortState })
+        } else {
+            this.setState({ sortKey: sortKey, sortState: 1 })
+        }
     }
 
     render() {
         const { list, onDismiss } = this.props
-        const { sortKey, isSortReverse } = this.state
+        const { sortKey, sortState } = this.state
+        const sortDirection = SORT_STATES[sortState]
         const sortedList = SORTS[sortKey](list)
-        const reverseSortedList = isSortReverse ? sortedList.reverse() : sortedList
+        const reverseSortedList = sortDirection === 'sort_reverse' ? sortedList.reverse() : sortedList
 
         return (
             <div className="table">

@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import Search from './Search'
 import Table from './Table'
 import Button from './Button'
-import Loading from './Loading'
 import withLoading from './withLoading'
 import fetch from 'isomorphic-fetch'
 import './App.css'
@@ -73,7 +72,7 @@ class App extends Component {
 
     onSearchSubmit = (event) => {
         const { searchTerm } = this.state
-        this.setState({ searchKey: searchTerm, sortKey: 'NONE' })
+        this.setState({ searchKey: searchTerm })
         if (this.needToSearchTopStories(searchTerm)) {
             this.fetchSearchTopStories(searchTerm)
         }
